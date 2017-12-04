@@ -3,18 +3,20 @@ package com.concretepage.controller;
 import com.concretepage.entity.Photo;
 import com.concretepage.entity.UserInfo;
 import com.concretepage.service.IPhotoService;
-import com.concretepage.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -23,6 +25,8 @@ public class PhotoController {
 
     @Autowired
     private IPhotoService photoService;
+    private static String UPLOADED_FOLDER = "D://temp//";
+
 
     @RequestMapping(value="photo", method= RequestMethod.GET)
     public ResponseEntity<Photo> getPhotoById(
@@ -37,21 +41,31 @@ public class PhotoController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @PostMapping("photo")
-    public ResponseEntity<Void> addPhoto(@RequestPart String title, @RequestPart MultipartFile img) throws IOException {
 
-        /*boolean flag = photoService.addPhoto(photo);
+    @PostMapping("photo")
+    public ResponseEntity<Void> singleFileUpload(@RequestParam("file") MultipartFile file, int album_id) {
+
+        String photoPath = UPLOADED_FOLDER + file.getOriginalFilename();
+        boolean flag = photoService.addPhoto(new Photo(album_id, photoPath));
         if (!flag) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }*/
-        /*HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/photo/{photo_id}").buildAndExpand(photo.getPhoto_id()).toUri());*/
-        File upl = new File("images/" + title);
-        upl.createNewFile();
-        FileOutputStream fout = new FileOutputStream(upl);
-        fout.write(img.getBytes());
-        fout.close();
-        return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+
+        if (file.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        try {
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(photoPath);
+            Files.write(path, bytes);
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(value="photo")

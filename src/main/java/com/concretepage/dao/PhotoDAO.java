@@ -46,10 +46,10 @@ public class PhotoDAO implements IPhotoDAO {
     }
 
     @Override
-    public boolean photoExists(String login, String password) {
-        String hql = "FROM UserInfo as usr WHERE usr.login = ? or usr.password = ?";
-        int count = entityManager.createQuery(hql).setParameter(1, login)
-                .setParameter(2, password).getResultList().size();
+    public boolean photoExists(String link) {
+        String hql = "FROM Photo as pht WHERE pht.photo_link = ?";
+        int count = entityManager.createQuery(hql).setParameter(1, link)
+                .getResultList().size();
         return count > 0;
     }
 

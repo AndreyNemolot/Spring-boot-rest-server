@@ -11,5 +11,5 @@ public interface IPhotoDAO {
     void addPhoto(Photo photo);
     void updatePhoto(Photo photo);
     void deletePhoto(int photoId);
-    boolean photoExists(String login, String password);
+    boolean photoExists(String link);
 }

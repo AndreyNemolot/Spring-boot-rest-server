@@ -13,17 +13,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserDAO implements IUserDAO {
 
 	@PersistenceContext	
-	private EntityManager entityManager;	
+	private EntityManager entityManager;
+
 	@Override
 	public UserInfo getUserById(int userId) {
 		return entityManager.find(UserInfo.class, userId);
 	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserInfo> getAllUsers() {
 		String hql ="FROM UserInfo";
 		return (List<UserInfo>) entityManager.createQuery(hql).getResultList();
-	}	
+	}
+
 	@Override
 	public void addUser(UserInfo userInfo) {
 		entityManager.merge(userInfo);
@@ -36,10 +39,12 @@ public class UserDAO implements IUserDAO {
 		usr.setPassword(userInfo.getPassword());
 		entityManager.flush();
 	}
+
 	@Override
 	public void deleteUser(int userId) {
 		entityManager.remove(getUserById(userId));
 	}
+
 	@Override
 	public boolean userExists(String login, String password) {
 		String hql = "FROM UserInfo as usr WHERE usr.login = ? or usr.password = ?";
@@ -47,6 +52,7 @@ public class UserDAO implements IUserDAO {
 				.setParameter(2, password).getResultList().size();
 		return count > 0;
 	}
+
 	@Override
 	public UserInfo getActiveUser(String login) {
 		UserInfo activeUserInfoInfo = new UserInfo();

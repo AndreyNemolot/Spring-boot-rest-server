@@ -3,17 +3,26 @@ package com.concretepage.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="photo")
+@Table(name = "photo")
 public class Photo {
 
+    // TODO: 30.11.2017 hash
+
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name="photo_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "photo_id")
     private int photo_id;
-    @Column(name="album_id")
+    @Column(name = "album_id")
     private int album_id;
-    @Column(name="photo_link")
+    @Column(name = "photo_link")
     private String photo_link;
+
+    public Photo(int id, String link) {
+        this.album_id = id;
+        this.photo_link = link;
+    }
+
+    public Photo(){}
 
     public int getPhoto_id() {
         return photo_id;

@@ -26,12 +26,12 @@ public class PhotoService implements IPhotoService {
 
     @Override
     public boolean addPhoto(Photo photo) {
-        /*if (photoDAO.photoExists(photo.getLogin(), photo.getPassword())) {
+        if (photoDAO.photoExists(photo.getPhoto_link())) {
             return false;
-        } else {*/
+        } else {
             photoDAO.addPhoto(photo);
             return true;
-       // }
+        }
     }
 
     @Override

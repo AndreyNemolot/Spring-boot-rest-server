@@ -25,8 +25,7 @@ public class UserInfo implements Serializable {
 	private String role;
 
 
-	public UserInfo() {
-	}
+	public UserInfo() {}
 
 	public int getId() {
 		return userId;

@@ -22,7 +22,7 @@ public class UserController {
 	public ResponseEntity<UserInfo> getUserById(
 			@RequestParam(value = "user_id") Integer id) {
 		UserInfo userInfo = userService.getUserById(id);
-		return new ResponseEntity<UserInfo>(userInfo, HttpStatus.OK);
+		return new ResponseEntity<>(userInfo, HttpStatus.OK);
 	}
 
 	@GetMapping("users")
