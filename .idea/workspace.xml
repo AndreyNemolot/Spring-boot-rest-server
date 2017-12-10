@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2df3b797-0b5d-42ea-a773-f4a56e2a1ae8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/concretepage/controller/AlbumController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/concretepage/dao/AlbumDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/concretepage/dao/IAlbumDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/concretepage/entity/Album.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/concretepage/service/AlbumService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/concretepage/service/IAlbumService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/concretepage/controller/PhotoController.class" afterPath="$PROJECT_DIR$/target/classes/com/concretepage/controller/PhotoController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/concretepage/service/IPhotoService.class" afterPath="$PROJECT_DIR$/target/classes/com/concretepage/service/IPhotoService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/concretepage/controller/PhotoController.java" afterPath="$PROJECT_DIR$/src/main/java/com/concretepage/controller/PhotoController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/concretepage/service/IPhotoService.java" afterPath="$PROJECT_DIR$/src/main/java/com/concretepage/service/IPhotoService.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -542,6 +534,14 @@
       <workItem from="1510831217747" duration="25000" />
       <workItem from="1511783480202" duration="4000" />
     </task>
+    <task id="LOCAL-00001" summary="Добавлена возможность добавлять альбом">
+      <created>1512933899204</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1512933899204</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -597,6 +597,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Добавлена возможность добавлять альбом" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлена возможность добавлять альбом" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
