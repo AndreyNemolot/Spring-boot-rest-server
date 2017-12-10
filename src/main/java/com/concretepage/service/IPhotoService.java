@@ -10,7 +10,7 @@ public interface IPhotoService {
         List<Photo> getAllPhotos();
         @Secured({"ROLE_ADMIN", "ROLE_USER"})
         Photo getPhotoById(int photoId);
-        @Secured({"ROLE_ADMIN"})
+        @Secured({"ROLE_ADMIN", "ROLE_USER"})
         boolean addPhoto(Photo photo);
         @Secured({"ROLE_ADMIN", "ROLE_USER"})
         void updatePhoto(Photo photo);

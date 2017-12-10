@@ -28,7 +28,7 @@ public class PhotoController {
     private static String UPLOADED_FOLDER = "D://temp//";
 
 
-    @RequestMapping(value="photo", method= RequestMethod.GET)
+    @RequestMapping(value = "photo", method = RequestMethod.GET)
     public ResponseEntity<Photo> getPhotoById(
             @RequestParam(value = "photo_id") Integer id) {
         Photo photo = photoService.getPhotoById(id);
@@ -44,31 +44,29 @@ public class PhotoController {
 
     @PostMapping("photo")
     public ResponseEntity<Void> singleFileUpload(@RequestParam("file") MultipartFile file, int album_id) {
-
-        String photoPath = UPLOADED_FOLDER + file.getOriginalFilename();
-        boolean flag = photoService.addPhoto(new Photo(album_id, photoPath));
-        if (!flag) {
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
-
         if (file.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        try {
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(photoPath);
-            Files.write(path, bytes);
+        String photoPath = UPLOADED_FOLDER + file.getOriginalFilename();
+        Photo ph = new Photo(album_id, photoPath);
+        boolean flag = photoService.addPhoto(ph);
+        if (!flag) {
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        } else {
+            try {
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(photoPath);
+                Files.write(path, bytes);
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping(value="photo")
+    @DeleteMapping(value = "photo")
     public ResponseEntity<Void> deletePhoto(
             @RequestParam(value = "photo_id") Integer id) {
         photoService.deletePhoto(id);
