@@ -18,9 +18,10 @@ public class AlbumDAO implements IAlbumDAO {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<Album> getAllAlbums() {
-        String hql ="FROM Album";
-        return (List<Album>) entityManager.createQuery(hql).getResultList();
+    public List<Album> getAllAlbums(int id) {
+        String hql ="FROM Album as alb WHERE alb.userId = ?";
+        return (List<Album>) entityManager.createQuery(hql).setParameter(1, id)
+                .getResultList();
     }
 
     @Override

@@ -20,11 +20,13 @@ public class UserDAO implements IUserDAO {
 		return entityManager.find(UserInfo.class, userId);
 	}
 
+
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<UserInfo> getAllUsers() {
-		String hql ="FROM UserInfo";
-		return (List<UserInfo>) entityManager.createQuery(hql).getResultList();
+	public List<UserInfo> getAllUsers(String login) {
+		String hql ="FROM UserInfo as usr WHERE usr.login = ?";
+		return (List<UserInfo>) entityManager.createQuery(hql).setParameter(1, login).getResultList();
 	}
 
 	@Override
@@ -34,15 +36,15 @@ public class UserDAO implements IUserDAO {
 
 	@Override
 	public void updateUser(UserInfo userInfo) {
-		UserInfo usr = getUserById(userInfo.getId());
+		/*UserInfo usr = getUserById(userInfo.getId());
 		usr.setLogin(userInfo.getLogin());
 		usr.setPassword(userInfo.getPassword());
-		entityManager.flush();
+		entityManager.flush();*/
 	}
 
 	@Override
 	public void deleteUser(int userId) {
-		entityManager.remove(getUserById(userId));
+		//entityManager.remove(getUserById(userId));
 	}
 
 	@Override

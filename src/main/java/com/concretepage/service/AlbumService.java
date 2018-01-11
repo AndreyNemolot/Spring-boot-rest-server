@@ -15,8 +15,8 @@ public class AlbumService implements IAlbumService {
     private IAlbumDAO albumDAO;
 
     @Override
-    public List<Album> getAllAlbum() {
-        return albumDAO.getAllAlbums();
+    public List<Album> getAllAlbum(int id) {
+        return albumDAO.getAllAlbums(id);
     }
 
     @Override

@@ -6,45 +6,43 @@ import javax.persistence.*;
 @Table(name = "photo")
 public class Photo {
 
-    // TODO: 30.11.2017 hash
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "photo_id")
-    private int photo_id;
+    private int photoId;
     @Column(name = "album_id")
-    private int album_id;
+    private int albumId;
     @Column(name = "photo_link")
-    private String photo_link;
+    private String photoLink;
 
     public Photo(int id, String link) {
-        this.album_id = id;
-        this.photo_link = link;
+        this.albumId = id;
+        this.photoLink = link;
     }
 
     public Photo(){}
 
-    public int getPhoto_id() {
-        return photo_id;
+    public int getPhotoId() {
+        return photoId;
     }
 
-    public void setPhoto_id(int photo_id) {
-        this.photo_id = photo_id;
+    public void setPhotoId(int photoId) {
+        this.photoId = photoId;
     }
 
-    public int getAlbum_id() {
-        return album_id;
+    public int getAlbumId() {
+        return albumId;
     }
 
-    public void setAlbum_id(int album_id) {
-        this.album_id = album_id;
+    public void setAlbumId(int albumId) {
+        this.albumId = albumId;
     }
 
-    public String getPhoto_link() {
-        return photo_link;
+    public String getPhotoLink() {
+        return photoLink;
     }
 
-    public void setPhoto_link(String photo_link) {
-        this.photo_link = photo_link;
+    public void setPhotoLink(String photoLink) {
+        this.photoLink = photoLink;
     }
 }

@@ -18,10 +18,11 @@ public class AlbumController {
     @Autowired
     private IAlbumService albumService;
 
-    @GetMapping("albums")
-    public ResponseEntity<List<Album>> getAllAlbums() {
-        List<Album> list = albumService.getAllAlbum();
-        return new ResponseEntity<List<Album>>(list, HttpStatus.OK);
+    @RequestMapping(value="albums", method= RequestMethod.GET)
+    public ResponseEntity<List<Album>> getAlbumsByUserId(
+            @RequestParam(value = "user_id") Integer id) {
+        List<Album> list = albumService.getAllAlbum(id);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @RequestMapping(value="album", method= RequestMethod.GET)

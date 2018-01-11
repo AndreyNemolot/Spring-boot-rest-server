@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface IUserService {
      @Secured({"ROLE_ADMIN", "ROLE_USER"})
-     List<UserInfo> getAllUsers();
+     List<UserInfo> getAllUsers(String login);
      @Secured({"ROLE_ADMIN", "ROLE_USER"})
      UserInfo getUserById(int userId);
      @Secured({"ROLE_ADMIN"})
@@ -17,4 +17,6 @@ public interface IUserService {
      void updateUser(UserInfo userInfo);
      @Secured({"ROLE_ADMIN", "ROLE_USER"})
      void deleteUser(int userId);
+
+
 }

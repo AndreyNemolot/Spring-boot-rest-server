@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IAlbumDAO {
 
-        List<Album> getAllAlbums();
+        List<Album> getAllAlbums(int id);
         Album getAlbumById(int albumId);
         void addAlbum(Album album);
         void updateAlbum(Album album);

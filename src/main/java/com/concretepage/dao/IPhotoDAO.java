@@ -6,7 +6,7 @@ import com.concretepage.entity.UserInfo;
 import java.util.List;
 
 public interface IPhotoDAO {
-    List<Photo> getAllPhotos();
+    List<Photo> getAllPhotos(int albumId);
     Photo getPhotoById(int photoId);
     void addPhoto(Photo photo);
     void updatePhoto(Photo photo);

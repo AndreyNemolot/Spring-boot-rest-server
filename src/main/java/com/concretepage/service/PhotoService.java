@@ -14,8 +14,8 @@ public class PhotoService implements IPhotoService {
     private IPhotoDAO photoDAO;
 
     @Override
-    public List<Photo> getAllPhotos() {
-        return photoDAO.getAllPhotos();
+    public List<Photo> getAllPhotos(int albumId) {
+        return photoDAO.getAllPhotos(albumId);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class PhotoService implements IPhotoService {
 
     @Override
     public boolean addPhoto(Photo photo) {
-        if (photoDAO.photoExists(photo.getPhoto_link())) {
+        if (photoDAO.photoExists(photo.getPhotoLink())) {
             return false;
         } else {
             photoDAO.addPhoto(photo);

@@ -8,7 +8,7 @@ import java.util.List;
 public interface IAlbumService{
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    List<Album> getAllAlbum();
+    List<Album> getAllAlbum(int id);
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     Album getAlbumById(int albumId);
     @Secured({"ROLE_ADMIN", "ROLE_USER"})

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IPhotoService {
         @Secured({"ROLE_ADMIN", "ROLE_USER"})
-        List<Photo> getAllPhotos();
+        List<Photo> getAllPhotos(int albumId);
         @Secured({"ROLE_ADMIN", "ROLE_USER"})
         Photo getPhotoById(int photoId);
         @Secured({"ROLE_ADMIN", "ROLE_USER"})
