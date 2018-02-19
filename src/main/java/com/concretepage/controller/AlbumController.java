@@ -1,6 +1,7 @@
 package com.concretepage.controller;
 
 import com.concretepage.entity.Album;
+import com.concretepage.entity.Photo;
 import com.concretepage.service.IAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -44,9 +45,9 @@ public class AlbumController {
     }
 
     @DeleteMapping(value="album")
-    public ResponseEntity<Void> deleteAlbum(
+    public ResponseEntity<List<Photo>> deleteAlbum(
             @RequestParam(value = "album_id") Integer id) {
-        albumService.deleteAlbum(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        List<Photo> list = albumService.deleteAlbum(id);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

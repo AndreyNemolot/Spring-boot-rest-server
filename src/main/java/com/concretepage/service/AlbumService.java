@@ -1,9 +1,12 @@
 package com.concretepage.service;
 
+import com.concretepage.controller.PhotoController;
 import com.concretepage.dao.IAlbumDAO;
 import com.concretepage.entity.Album;
+import com.concretepage.entity.Photo;
 import com.concretepage.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +24,7 @@ public class AlbumService implements IAlbumService {
 
     @Override
     public Album getAlbumById(int albumId) {
-        Album obj = albumDAO.getAlbumById(albumId);
-        return obj;
+        return albumDAO.getAlbumById(albumId);
     }
 
     @Override
@@ -41,7 +43,7 @@ public class AlbumService implements IAlbumService {
     }
 
     @Override
-    public void deleteAlbum(int albumId) {
-        albumDAO.deleteAlbum(albumId);
+    public List<Photo> deleteAlbum(int albumId) {
+        return albumDAO.deleteAlbum(albumId);
     }
 }

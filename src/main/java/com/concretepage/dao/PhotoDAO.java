@@ -50,7 +50,7 @@ public class PhotoDAO implements IPhotoDAO {
     public void deletePhoto(int photoId) {
         Photo photo = entityManager.find(Photo.class, photoId);
         if(delete(photo)) {
-            entityManager.remove(getPhotoById(photoId));
+            entityManager.remove(photo);
         }
     }
 
@@ -60,9 +60,9 @@ public class PhotoDAO implements IPhotoDAO {
             return file.delete();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-
+            return false;
         }
-        return false;
+
     }
 
     @Override

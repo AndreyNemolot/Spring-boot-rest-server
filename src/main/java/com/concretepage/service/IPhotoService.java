@@ -15,5 +15,5 @@ public interface IPhotoService {
         @Secured({"ROLE_ADMIN", "ROLE_USER"})
         void updatePhoto(Photo photo);
         @Secured({"ROLE_ADMIN", "ROLE_USER"})
-        void deletePhoto(int photoId);
+        boolean deletePhoto(int photoId);
     }

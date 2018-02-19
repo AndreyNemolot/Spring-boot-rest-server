@@ -40,7 +40,8 @@ public class PhotoService implements IPhotoService {
     }
 
     @Override
-    public void deletePhoto(int photoId) {
+    public boolean deletePhoto(int photoId) {
         photoDAO.deletePhoto(photoId);
+        return true;
     }
 }
