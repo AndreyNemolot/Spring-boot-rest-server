@@ -1,5 +1,6 @@
 package com.concretepage.entity;
 
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,32 +12,34 @@ public class Album implements Serializable {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="album_id")
     private int albumId;
-    @Column(name="user_id")
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private UserInfo user;
     @Column(name="album_title")
     private String albumTitle;
 
-    public Album() {}
-
-    public void setAlbumId(int albumId) {
-        this.albumId = albumId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(UserInfo user) {
+        this.user = user;
     }
 
     public void setAlbumTitle(String albumTitle) {
         this.albumTitle = albumTitle;
     }
 
-    public int getAlbumId() {
-
-        return albumId;
+    public Album() {
+        this.user = new UserInfo();
     }
 
-    public int getUserId() {
-        return userId;
+    public void setAlbumId(int albumId) {
+        this.albumId = albumId;
+    }
+
+    public UserInfo getUser(){
+        return user;
+    }
+
+    public int getAlbumId() {
+        return albumId;
     }
 
     public String getAlbumTitle() {

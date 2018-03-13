@@ -4,6 +4,8 @@ import com.concretepage.controller.PhotoController;
 import com.concretepage.entity.Album;
 import com.concretepage.entity.Photo;
 import com.concretepage.entity.UserInfo;
+import com.concretepage.service.IPhotoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,19 +20,29 @@ public class AlbumDAO implements IAlbumDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
-    private static String UPLOADED_FOLDER = "D://temp//";
+
+    @Override
+    public int getUserIDbyAlbumID(int albumId) {
+        String hql = "FROM Album al WHERE al.albumId = ?";
+        Album album = (Album) entityManager.createQuery(hql)
+                .setParameter(1, albumId).getResultList().get(0);
+        return album.getUser().getId();
+    }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<Album> getAllAlbums(int id) {
-        String hql ="FROM Album as alb WHERE alb.userId = ?";
+        String hql ="FROM Album as alb WHERE alb.user.userId = ?";
         return (List<Album>) entityManager.createQuery(hql).setParameter(1, id)
                 .getResultList();
     }
 
     @Override
     public Album getAlbumById(int albumId) {
-        return entityManager.find(Album.class, albumId);
+        String hql ="FROM Album WHERE albumId = ?";
+
+        return (Album) entityManager.createQuery(hql).setParameter(1, albumId)
+                .getResultList().get(0);
     }
 
     @Override
@@ -40,43 +52,13 @@ public class AlbumDAO implements IAlbumDAO {
 
     @Override
     public void updateAlbum(Album album) {
-
     }
 
     @Override
-    public List<Photo> deleteAlbum(int albumId) {
-        String hql ="FROM Photo as ph WHERE ph.albumId = ?";
-        List<Photo> photoList = (List<Photo>) entityManager.createQuery(hql)
-                .setParameter(1, albumId).getResultList();
-        deletePhoto(albumId);
-        entityManager.remove(getAlbumById(albumId));
-
-        return photoList;
-    }
-
-    private void deletePhoto(int albumId){
-        String hql ="FROM Photo as ph WHERE ph.albumId = ?";
-        List<Photo> photoList = (List<Photo>) entityManager.createQuery(hql)
-                .setParameter(1, albumId).getResultList();
-        if (photoList.size()>0){
-            for (int i=0; i<photoList.size();i++) {
-
-                Photo photo = entityManager.find(Photo.class, photoList.get(i).getPhotoId());
-                if(deletePhoto(photo)) {
-                    entityManager.remove(photo);
-                }
-            }
-        }
-    }
-    private boolean deletePhoto(Photo photo){
-        File file = new File(UPLOADED_FOLDER + photo.getPhotoLink());
-        try {
-            return file.delete();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            return false;
-        }
-
+    public boolean deleteAlbum(int albumId) {
+        Album album = getAlbumById(albumId);
+        entityManager.remove(album);
+        return true;
     }
 
     @Override

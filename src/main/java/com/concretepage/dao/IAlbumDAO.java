@@ -7,11 +7,18 @@ import java.util.List;
 
 public interface IAlbumDAO {
 
-        List<Album> getAllAlbums(int id);
-        Album getAlbumById(int albumId);
-        void addAlbum(Album album);
-        void updateAlbum(Album album);
-        List<Photo> deleteAlbum(int albumId);
-        boolean albumExists(String title);
+    List<Album> getAllAlbums(int id);
+
+    Album getAlbumById(int albumId);
+
+    void addAlbum(Album album);
+
+    void updateAlbum(Album album);
+
+    boolean deleteAlbum(int albumId);
+
+    boolean albumExists(String title);
+
+    int getUserIDbyAlbumID(int albumId);
 
 }

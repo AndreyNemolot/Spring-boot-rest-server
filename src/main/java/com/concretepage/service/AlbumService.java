@@ -1,6 +1,7 @@
 package com.concretepage.service;
 
 import com.concretepage.controller.PhotoController;
+import com.concretepage.dao.AlbumDAO;
 import com.concretepage.dao.IAlbumDAO;
 import com.concretepage.entity.Album;
 import com.concretepage.entity.Photo;
@@ -16,6 +17,13 @@ public class AlbumService implements IAlbumService {
 
     @Autowired
     private IAlbumDAO albumDAO;
+
+    private final String UPLOADED_FOLDER = "D://temp//";
+
+    public String getAlbumPathOnServer(int albumId) {
+        return UPLOADED_FOLDER + getUserIDbyAlbumID(albumId) +
+                "//" + albumId;
+    }
 
     @Override
     public List<Album> getAllAlbum(int id) {
@@ -43,7 +51,12 @@ public class AlbumService implements IAlbumService {
     }
 
     @Override
-    public List<Photo> deleteAlbum(int albumId) {
+    public boolean deleteAlbum(int albumId) {
         return albumDAO.deleteAlbum(albumId);
+    }
+
+    @Override
+    public int getUserIDbyAlbumID(int albumId) {
+        return albumDAO.getUserIDbyAlbumID(albumId);
     }
 }

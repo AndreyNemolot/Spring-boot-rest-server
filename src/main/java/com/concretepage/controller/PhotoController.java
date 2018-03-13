@@ -3,6 +3,7 @@ package com.concretepage.controller;
 import com.concretepage.entity.Photo;
 import com.concretepage.entity.UserInfo;
 import com.concretepage.service.IPhotoService;
+import com.concretepage.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
@@ -25,27 +26,27 @@ public class PhotoController {
 
     @Autowired
     private IPhotoService photoService;
-    private static String UPLOADED_FOLDER = "D://temp//";
-
 
     @RequestMapping(value = "photo", method = RequestMethod.GET)
     public ResponseEntity<ByteArrayResource> getPhotoById(
             @RequestParam(value = "photo_id") Integer id) {
-        Photo photo = photoService.getPhotoById(id); // TODO: 24.12.2017 Если фото уже есть то ок
-        File file = new File(UPLOADED_FOLDER + photo.getPhotoLink());
+        Photo photo = photoService.getPhotoById(id);
+        String photoPathOnServer = photoService.getPhotoPathOnServer(photo);
+        File file = new File(photoPathOnServer + "//" + photo.getPhotoLink());
         Path path = Paths.get(file.getAbsolutePath());
         ByteArrayResource resource = null;
         try {
             resource = new ByteArrayResource(Files.readAllBytes(path));
         } catch (IOException e) {
             e.printStackTrace();
+            return new ResponseEntity<>(resource, HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(resource, HttpStatus.CREATED);
     }
 
     @GetMapping("photos")
     public ResponseEntity<List<Photo>> getAllPhotos(
-        @RequestParam(value = "album_id") int albumId) {
+            @RequestParam(value = "album_id") int albumId) {
         List<Photo> list = photoService.getAllPhotos(albumId);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -56,14 +57,18 @@ public class PhotoController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         String photoPath = file.getOriginalFilename();
-        Photo ph = new Photo(album_id, photoPath);
-        boolean flag = photoService.addPhoto(ph);
-        if (!flag) {
+        Photo photo = new Photo(album_id, photoPath);
+        photo = photoService.addPhoto(photo);
+        if (photo == null) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
             try {
+                String photoPathOnServer = photoService.getPhotoPathOnServer(photo);
+
+                new File(photoPathOnServer).mkdirs();
+
                 byte[] bytes = file.getBytes();
-                Path path = Paths.get(UPLOADED_FOLDER + photoPath);
+                Path path = Paths.get(photoPathOnServer + "//" + photoPath);
                 Files.write(path, bytes);
 
             } catch (IOException e) {
@@ -80,4 +85,6 @@ public class PhotoController {
         photoService.deletePhoto(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 }

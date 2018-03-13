@@ -24,6 +24,13 @@ public class UserInfo implements Serializable {
 	@Column(name="role")
 	private String role;
 
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 
 	public UserInfo() {}
 

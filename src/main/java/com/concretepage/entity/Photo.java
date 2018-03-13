@@ -10,13 +10,15 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "photo_id")
     private int photoId;
-    @Column(name = "album_id")
-    private int albumId;
+    @ManyToOne
+    @JoinColumn(name = "album_id")
+    private Album album;
     @Column(name = "photo_link")
     private String photoLink;
 
-    public Photo(int id, String link) {
-        this.albumId = id;
+    public Photo(int albumId, String link) {
+        this.album = new Album();
+        this.album.setAlbumId(albumId);
         this.photoLink = link;
     }
 
@@ -31,11 +33,11 @@ public class Photo {
     }
 
     public int getAlbumId() {
-        return albumId;
+        return album.getAlbumId();
     }
 
     public void setAlbumId(int albumId) {
-        this.albumId = albumId;
+        this.album.setAlbumId(albumId);
     }
 
     public String getPhotoLink() {

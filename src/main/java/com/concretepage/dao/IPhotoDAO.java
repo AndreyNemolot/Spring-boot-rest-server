@@ -7,9 +7,16 @@ import java.util.List;
 
 public interface IPhotoDAO {
     List<Photo> getAllPhotos(int albumId);
+
     Photo getPhotoById(int photoId);
-    void addPhoto(Photo photo);
+
+    Photo addPhoto(Photo photo);
+
     void updatePhoto(Photo photo);
-    void deletePhoto(int photoId);
-    boolean photoExists(String link);
+
+    Photo deletePhoto(int photoId);
+
+    boolean photoExists(Photo photo);
+
+    int getUserIDbyPhotoID(int photoId);
 }

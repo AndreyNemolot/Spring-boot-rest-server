@@ -17,5 +17,7 @@ public interface IAlbumService{
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     void updateAlbum(Album album);
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    List<Photo> deleteAlbum(int albumId);
+    boolean deleteAlbum(int albumId);
+    int getUserIDbyAlbumID(int albumId);
+    String getAlbumPathOnServer(int albumId);
 }
