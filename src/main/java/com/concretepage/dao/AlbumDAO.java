@@ -2,15 +2,11 @@ package com.concretepage.dao;
 
 import com.concretepage.controller.PhotoController;
 import com.concretepage.entity.Album;
-import com.concretepage.entity.Photo;
-import com.concretepage.entity.UserInfo;
-import com.concretepage.service.IPhotoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.io.File;
 import java.util.List;
 

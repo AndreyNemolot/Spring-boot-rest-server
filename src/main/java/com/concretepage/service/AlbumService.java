@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 
 @Service
@@ -17,8 +18,9 @@ public class AlbumService implements IAlbumService {
 
     @Autowired
     private IAlbumDAO albumDAO;
-
-    private final String UPLOADED_FOLDER = "D://temp//";
+    
+    File currentDirFile = new File(".");
+    private final String UPLOADED_FOLDER =currentDirFile.getAbsolutePath()+ "//temp//";
 
     public String getAlbumPathOnServer(int albumId) {
         return UPLOADED_FOLDER + getUserIDbyAlbumID(albumId) +

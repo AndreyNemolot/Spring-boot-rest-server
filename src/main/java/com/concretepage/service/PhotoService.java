@@ -14,7 +14,8 @@ public class PhotoService implements IPhotoService {
     @Autowired
     private IPhotoDAO photoDAO;
 
-    private final String UPLOADED_FOLDER = "D://temp//";
+    File currentDirFile = new File(".");
+    private final String UPLOADED_FOLDER =currentDirFile.getAbsolutePath()+ "//temp//";
 
     public String getPhotoPathOnServer(Photo photo) {
         return UPLOADED_FOLDER + getUserIDbyPhotoID(photo.getPhotoId()) +
